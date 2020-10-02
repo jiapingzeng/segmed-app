@@ -14,7 +14,7 @@
         <div class="card flagged" id="card-<%= c.id %>">
             <span class="card-number"><%= c.id %></span>
             <div class="card-image">
-                <img src="<%= c.img %>">
+                <img src="<%= c.image %>">
             </div>
             <button onclick="clicked('<%= c.id %>')">Unflag</button>
         </div>
@@ -22,7 +22,7 @@
         <div class="card" id="card-<%= c.id %>">
             <span class="card-number"><%= c.id %></span>
             <div class="card-image">
-                <img src="<%= c.img %>">
+                <img src="<%= c.image %>">
             </div>
             <button onclick="clicked('<%= c.id %>')">Flag</button>
         </div>
@@ -31,26 +31,43 @@
     </main>
 
     <script>
+        // enable horizontal scrolling on main section
         const main = document.getElementsByTagName('main')[0]
         window.addEventListener('wheel', e => main.scrollLeft += e.deltaY)
 
+        // flag image when button is pressed
         clicked = (id) => {
             card = document.getElementById(`card-${id}`)
             button = card.children[2]
             flagged = card.classList.contains('flagged')
 
-            // TODO: update database
-            fetch('/', { method: 'POST' }).then(res => {
-                console.log(res)
-            })
-
-            if (flagged) {
-                card.classList.remove('flagged')
-                button.innerHTML = 'Flag'
-            } else {
-                card.classList.add('flagged')
-                button.innerHTML = 'Unflag'
+            options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: id
+                })
             }
+            fetch('/', options)
+                .then(res => {
+                    if (res.status == 200) {
+                        if (flagged) {
+                            card.classList.remove('flagged')
+                            button.innerHTML = 'Flag'
+                        } else {
+                            card.classList.add('flagged')
+                            button.innerHTML = 'Unflag'
+                        }
+                        console.log('Successfully updated flag')
+                    } else {
+                        window.alert('An error has occured while flagging the photo, please try refreshing the page')
+                    }
+                })
+                .catch(err => {
+                    window.alert('Did not receive a response from the server')
+                })
         }
     </script>
 </body>
