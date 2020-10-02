@@ -1,0 +1,15 @@
+{
+  "name": "segmed-app",
+  "version": "1.0.0",
+  "description": "Website for image presentation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "jiapingzeng",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  }
+}

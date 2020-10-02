@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Image presentation</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+    <main>
+        <div class="card">
+            <div class="card-image">
+                <img src="/test.jpg">
+            </div>
+            <button>Flag</button>
+        </div>
+        <div class="card flagged">
+            <div class="card-image">
+                <img src="/test.jpg">
+            </div>
+            <button>Unflag</button>
+        </div>
+        <div class="card">
+            <div class="card-image">
+                <img src="/test.jpg">
+            </div>
+            <button>Flag</button>
+        </div>
+        <div class="card">
+            <div class="card-image">
+                <img src="/test.jpg">
+            </div>
+            <button>Flag</button>
+        </div>
+        <div class="card">
+            <div class="card-image">
+                <img src="/test.jpg">
+            </div>
+            <button>Flag</button>
+        </div>
+    </main>
+
+    <script>
+        const main = document.getElementsByTagName("main")[0]
+        window.addEventListener('wheel', e => main.scrollLeft += e.deltaY)
+    </script>
+</body>
+
+</html>
