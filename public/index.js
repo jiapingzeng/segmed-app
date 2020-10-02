@@ -1,6 +1,6 @@
 // enable horizontal scrolling on main section
 const main = document.getElementsByTagName('main')[0]
-window.addEventListener('wheel', e => main.scrollLeft += e.deltaY)
+main.addEventListener('wheel', e => main.scrollLeft += 2 * e.deltaY)
 
 // flag image when button is pressed
 clicked = (id) => {
