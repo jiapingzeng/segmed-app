@@ -5,7 +5,7 @@
 
 ## Local setup
 1. Install Node.js from [here](https://nodejs.org/en/)
-2. Clone this repo (and switch to this branch):
+2. Clone this repo:
 ```
 git clone https://github.com/jiapingzeng/segmed-app
 cd segmed-app
