@@ -31,7 +31,9 @@ const cards = [
 
 // create cards database
 var create = () => {
+    // create database with unique id, image URL and flagged boolean
     const createTable = "CREATE TABLE cards(id int NOT NULL, image varchar(256), flagged boolean, UNIQUE(id));"
+
     connection.query(createTable, (err, res, fields) => {
         if (err) console.error(`An error has occured when creating database: ${err}`)
         else console.log('Table created successfully')
@@ -39,14 +41,18 @@ var create = () => {
 }
 
 
-// insert all cards into database
+// insert cards into database
 var fill = () => {
     var fillTable = "INSERT INTO cards(id, image, flagged) VALUES"
+
+    // add cards to query
     for (card of cards) {
         fillTable += ` (${card.id}, '${card.image}', ${card.flagged}),`
     }
     fillTable = fillTable.slice(0, -1) + ';'; // remove last comma and add semicolon
+
     console.log(`Query: ${fillTable}`)
+
     connection.query(fillTable, (err, res, fields) => {
         if (err) console.error(`An error has occured when inserting cards: ${err}`)
         else console.log(`Successfully inserted ${cards.length} elements`)
@@ -57,9 +63,11 @@ var fill = () => {
 // print all cards in database
 var read = () => {
     var readTable = "SELECT * FROM cards"
+
     connection.query(readTable, (err, res, fields) => {
         if (err) console.error(`An error has occured when selecting cards: ${err}`)
         else {
+            // successfully retrieved data from database
             for (card of res) {
                 console.log(card)
             }
@@ -73,6 +81,7 @@ var drop = () => {
     connection.query(dropTable, (err, res, fields) => {
         if (err) console.error(`An error has occured when dropping database: ${err}`)
         else {
+            // table dropped, exit process
             console.log('Table dropped')
             process.exit(0)
         }
@@ -81,5 +90,5 @@ var drop = () => {
 
 // create()
 // fill()
-// read()
+read()
 // drop()

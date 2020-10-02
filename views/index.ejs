@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     <title>Image presentation</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
@@ -10,66 +12,19 @@
 <body>
     <main>
         <% cards.forEach(c => { %>
-        <% if (c.flagged) { %>
-        <div class="card flagged" id="card-<%= c.id %>">
+        <div class="card <%= c.flagged ? 'flagged':'' %>" id="card-<%= c.id %>">
             <span class="card-number"><%= c.id %></span>
             <div class="card-image">
                 <img src="<%= c.image %>">
             </div>
-            <button onclick="clicked('<%= c.id %>')">Unflag</button>
+            <button onclick="clicked('<%= c.id %>')">
+                <%= c.flagged ? 'Unflag':'Flag' %>
+            </button>
         </div>
-        <% } else { %>
-        <div class="card" id="card-<%= c.id %>">
-            <span class="card-number"><%= c.id %></span>
-            <div class="card-image">
-                <img src="<%= c.image %>">
-            </div>
-            <button onclick="clicked('<%= c.id %>')">Flag</button>
-        </div>
-        <% } %>
         <% }) %>
     </main>
-
-    <script>
-        // enable horizontal scrolling on main section
-        const main = document.getElementsByTagName('main')[0]
-        window.addEventListener('wheel', e => main.scrollLeft += e.deltaY)
-
-        // flag image when button is pressed
-        clicked = (id) => {
-            card = document.getElementById(`card-${id}`)
-            button = card.children[2]
-            flagged = card.classList.contains('flagged')
-
-            options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id: id
-                })
-            }
-            fetch('/', options)
-                .then(res => {
-                    if (res.status == 200) {
-                        if (flagged) {
-                            card.classList.remove('flagged')
-                            button.innerHTML = 'Flag'
-                        } else {
-                            card.classList.add('flagged')
-                            button.innerHTML = 'Unflag'
-                        }
-                        console.log('Successfully updated flag')
-                    } else {
-                        window.alert('An error has occured while flagging the photo, please try refreshing the page')
-                    }
-                })
-                .catch(err => {
-                    window.alert('Did not receive a response from the server')
-                })
-        }
-    </script>
+    <footer>Jiaping Zeng</footer>
+    <script src="/index.js"></script>
 </body>
 
 </html>
